@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}{{ blog_type }}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 100px;>
+</div>
+<div class="container-fluid">
+  <div class="row">
+<div class="col-md-3 col-lg-3 col-xl-2">
+    <div class="container">
+      <div class="dropdown">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-biaoqian5"></use>
+            </svg>
+            标签分类
+        </button>
+        <div class="dropdown-menu">
+          <ul class="list-group">
+              {% for type in blog_types %}
+            <li class="list-group-item">
+                <a href="{% url "blogs_with_type" type.pk %}">
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-biaoqian"></use>
+                    </svg>
+                    {{ type.type_name }}<span class="badge badge-pill badge-primary">{{type.blog_count}}</span>
+                </a>
+              {% empty %}
+                <p>暂无分类</p>
+              {% endfor %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+     <div class="container">
+      <div class="dropdown">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-qiandao-"></use>
+            </svg>
+            日期分类
+        </button>
+        <div class="dropdown-menu">
+          <ul class="list-group">
+              {% for blog_date,blog_count in blog_dates.items %}
+            <li class="list-group-item">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-isometricfenggetubiaosheji-"></use>
+                </svg>
+                  <a href="{% url 'blogs_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:"Y年n月" }}<span class="badge badge-pill badge-primary">{{ blog_count }}</span></a>
+                {% empty %}
+                    {{blog_dates}}
+                    <p>暂无分类</p>
+                {% endfor %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+       <div class="container">
+          <div class="card">
+            <div class="card-header">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-laba"></use>
+            </svg>
+                通知
+            </div>
+            <div class="card-body">
+                暂无通知
+            </div>
+          </div>
+       </div>
+    </div>
+    <div class="col-md-9 col-lg-9 col-xl-10">
+        <div class="container">
+          <div class="card">
+            <div class="card-header">
+                <div class="mx-auto" style="width:150px">
+                  <p>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-biaoqian4"></use>
+                    </svg>
+                      共有<span class="badge badge-pill badge-primary">{{ paginator.count }}</span>篇{{blog_type}}
+                  </p>
+                </div>
+            </div>
+            <div class="card-body">
+                {% for blog in blogs %}
+                    <a href="{% url 'blog_detail' blog.pk %}">
+                        <h3>{{ blog.title }}</h3>
+                    </a>
+                    <a href="{% url "blogs_with_type" blog.blog_type.pk %}">
+                        <p>
+                        <svg class="icon" aria-hidden="true">
+                          <use xlink:href="#icon-biaoqian"></use>
+                        </svg>
+                            {{ blog.blog_type }}
+                        </p>
+                    </a>
+                    <p>{{ blog.content|striptags|truncatechars:120 }}</p>
+                <hr>
+                {% empty %}
+                    <p>暂无博客</p>
+                {% endfor %}
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <div>
+          <ul class="pagination">
+              {% if page.has_previous %}
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{page.previous_page_number}}">&laquo;</a>
+                </li>
+              {% endif %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1">首</a>
+                </li>
+              {% for num in page_range %}
+                  {% if num == page.number %}
+                    <li class="page-item active">
+                      <a class="page-link" href="#">{{num}}</a>
+                    </li>
+                  {% else %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{num}}">{{num}}</a>
+                    </li>
+                  {% endif %}
+              {% empty %}
+                <li class="page-item active">
+                  <a class="page-link" href="#">1</a>
+                </li>
+              {% endfor %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{last_page}}">尾</a>
+                </li>
+              {% if page.has_next %}
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{page.next_page_number}}">&raquo;</a>
+                </li>
+              {% endif %}
+          </ul>
+        </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
+

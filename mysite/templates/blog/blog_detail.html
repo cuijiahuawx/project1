@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+{% block content %}
+    <div class="container-fluid" style="margin-top: 100px;">
+      <div class="card">
+        <div class="card-header">
+            <h3>{{ blog.title }}</h3>
+            <span>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon--gangbi"></use>
+            </svg>
+                {{ blog.author }}
+            </span>
+            <a href="{% url "blogs_with_type" blog.blog_type.pk %}">
+                <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-biaoqian"></use>
+                    </svg>
+                    {{ blog.blog_type }}
+                </span>
+            </a>
+            <span>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-isometricfenggetubiaosheji-"></use>
+                </svg>
+                {{ blog.created_time|date:"Y年n月j日"   }}
+            </span>
+            <span>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                {{blog.get_read_num}}
+            </span>
+        </div>
+        <div class="card-body">
+            <div style="line-height: 2em;">
+                {{ blog.content|safe }}
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-default btn-block">
+            {% if previous_blog %}
+                <a class="page-link" href="{% url "blog_detail" previous_blog.pk %}">
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-fanye"></use>
+                    </svg>
+                上一篇
+                </a>
+            {% else %}
+                <p>没有了</p>
+            {% endif %}
+            </button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-default btn-block">
+            {% if next_blog %}
+                <a class="page-link" href="{% url "blog_detail" next_blog.pk %}">
+                下一篇
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-fanye1"></use>
+                    </svg>
+                </a>
+            {% else %}
+                <p>没有了</p>
+            {% endif %}
+            </button>
+        </div>
+      </div>
+    </div>
+{% endblock %}

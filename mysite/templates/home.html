@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}博客首页{% endblock %}
+{% block  extends %}
+     <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+{% endblock %}
+{% block content %}
+<div class="row" style="margin-top: 150px;">
+  <div class="col" style="margin-top: 10px;">
+     <div id="container" style="min-width:250px;height:400px"></div>
+  </div>
+  <div class="col" style="margin-top: 10px;">
+     <div id="accordion">
+    <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+          今日热门博客
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse show" data-parent="#accordion">
+        <div class="card-body">
+            {% for hot_data in today_hot_data%}
+            <ul>
+                <li>
+                 <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon--fire"></use>
+                </svg>
+                    <a href="{% url 'blog_detail' hot_data.content_object.pk %}">
+                        {{ hot_data.content_object.title }}
+                    </a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                    {{ hot_data.read_num }}
+                </li>
+            </ul>
+            {% empty %}
+            <p>今日暂无热门博客</p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+        昨日热门博客
+      </a>
+      </div>
+      <div id="collapseTwo" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+            {% for hot_data in yesterday_hot_data%}
+            <ul>
+                <li>
+                 <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon--fire"></use>
+                </svg>
+                    <a href="{% url 'blog_detail' hot_data.content_object.pk %}">
+                        {{ hot_data.content_object.title }}
+                    </a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                    {{ hot_data.read_num }}
+                </li>
+            </ul>
+            {% empty %}
+            <p>昨日暂无热门博客</p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+          一周内热门博客
+        </a>
+      </div>
+      <div id="collapseThree" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+            {% for hot_data in week_hot_data %}
+            <ul>
+                <li>
+                 <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon--fire"></use>
+                </svg>
+                    <a href="{% url 'blog_detail' hot_data.id %}">
+                       {{ hot_data.title }}
+                    </a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                    {{ hot_data.read_num_sum }}
+                </li>
+            </ul>
+            {% empty %}
+            <p>昨日暂无热门博客</p>
+            {% endfor %}
+        </div>
+      </div>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFore">
+          一月内热门博客
+        </a>
+      </div>
+      <div id="collapseFore" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+            {% for hot_data in month_hot_data %}
+            <ul>
+                <li>
+                 <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon--fire"></use>
+                </svg>
+                    <a href="{% url 'blog_detail' hot_data.id %}">
+                       {{ hot_data.title }}
+                    </a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                    {{ hot_data.read_num_sum }}
+                </li>
+            </ul>
+            {% empty %}
+            <p>暂无热门博客</p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+      <script>
+            // 图表配置
+            var options = {
+                chart: {
+                    type: 'line'                          //指定图表的类型，默认是折线图（line）
+                },
+                title: {text: "欢迎来到我的博客网站"},
+                subtitle: {
+                    text: '近日阅读数量变化'
+                },
+                xAxis: {
+                    categories: {{dates|safe}}   // x 轴分类
+                },
+                yAxis: {
+                    title: {
+                        text: '阅读数'                // y 轴标题
+                    },
+                    labels:{ enabled: false },
+                    gridLineDashStyle: 'Dash',
+                },
+                series: [{                              // 数据列
+                    name: '阅读量',                        // 数据列名
+                    data: {{read_nums}}                     // 数据
+                }],
+                 plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                legend: { enabled: false },
+                credits: { enabled: false },
+            };
+            // 图表初始化函数
+            var chart = Highcharts.chart('container', options);
+        </script>
+{% endblock %}

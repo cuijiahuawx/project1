@@ -1,0 +1,138 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/APP_ID.js","daovoice");</script>
+    <script>
+      daovoice('init', {
+        app_id: "e29463c5",
+      });
+      daovoice('update');
+    </script>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "title.ico" %}" rel="shortcut icon">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">　
+    <script src="{% static "bootstrap/js/jquery.min.js" %}"></script>
+    <script src="{% static "bootstrap/js/popper.min.js" %}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "icon/iconfont.js" %}"></script>
+    <link href="{% static "huojian/css/mybody.css" %}" rel="stylesheet" media="all">
+    <script src="{% static "huojian/js/jquery-1.4.4.min.js" %}"></script>
+    <script src="{% static "huojian/js/script.js" %}"></script>
+    <style>
+    .icon {
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+    </style>
+    {% block  extends %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" href="{% url 'home' %}" target="_blank"><img src="http://ww1.sinaimg.cn/large/0077LJIdly1fzwzhdxivdj30jw0h140g.jpg" alt="" style="width:40px;"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}" target="_blank">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-shouye1"></use>
+            </svg>首页
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'blog_list' %}" target="_blank">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-liebiao"></use>
+            </svg>博客列表
+        </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-sousuo"></use>
+            </svg>搜索
+      </button>
+    </form>
+  </div>
+</nav>
+    {% block content %}{% endblock %}
+<div id="scrollTop">
+  <div class="level-2"></div>
+  <div class="level-3"></div>
+</div>
+<script type="text/javascript">
+	UI.global_search();
+	var uvOptions = {};
+	// !important
+	(function() {
+		initScrollTop();
+	})();
+</script>
+<div class="container">
+  <iframe src="https://api.mlwei.com/music/play/?id=5379220776&type=songlist&autoplay=true&fixed=true" frameborder="0" width="300px"></iframe>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor04">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-githubb"></use>
+            </svg> GitHub
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://chat.daovoice.io?id=e29463c5" target="_blank">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-liaotiantalk"></use>
+            </svg> 网页在线聊天/留言
+        </a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="http://space.bilibili.com/96302716" target="_blank">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-bilibili"></use>
+            </svg> BiliBili
+        </a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-qq"></use>
+            </svg> QQ：2509605080
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/falacuijiahua" target="_blank">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-13"></use>
+            </svg> 邮箱：2509605080@qq.com
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-microblog"></use>
+            </svg> 新浪微博
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<script src="{% static "js/canvas-nest.js" %}"></script>
+<canvas id="c_n1"></canvas>
+</body>
+
+</html>
